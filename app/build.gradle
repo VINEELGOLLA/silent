@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     //room
-    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-runtime:2.2.5"
     annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room

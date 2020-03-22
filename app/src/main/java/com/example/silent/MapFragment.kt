@@ -46,6 +46,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var targetPosition: LatLng
 
 
+
     // google places
     private lateinit var place: Place
 

@@ -1,4 +1,10 @@
 package com.example.silent.db
 
-class Location {
-}
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.model.PlusCode
+
+@Entity(tableName = "Location")
+data class Location (@PrimaryKey val id: String, val name: String, val address: String, val radius: Double, val mode: Int, val notify: Int, val LatLng: LatLng, val plusCode: PlusCode, val status: Int)
