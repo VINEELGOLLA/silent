@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="16dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="100dp"
+    app:layout_insetEdge="bottom"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/remove"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dandelion Chocolate"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="#5d5d5d" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:drawableStart="@drawable/ic_location_on_black_24dp"
+        android:drawablePadding="16dp"
+        android:text="740 Valencia St, San Fracisco, CA" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:drawablePadding="16dp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="Select Radius" >
+
+    </TextView>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        android:layout_gravity="center"
+        app:checkedChip="@id/chip6"
+
+        app:chipSpacingHorizontal="40dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip6"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipBackgroundColor="@color/bg_chip_state_list"
+            android:textColor="@color/bg_chip_state_text_color"
+
+            app:chipStartPadding="10dp"
+            android:text="5" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip7"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipBackgroundColor="@color/bg_chip_state_list"
+            android:textColor="@color/bg_chip_state_text_color"
+
+            app:chipStartPadding="10dp"
+            android:text="10" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip8"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipBackgroundColor="@color/bg_chip_state_list"
+            android:textColor="@color/bg_chip_state_text_color"
+
+            app:chipStartPadding="10dp"
+
+            android:text="15" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip9"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipBackgroundColor="@color/bg_chip_state_list"
+            android:textColor="@color/bg_chip_state_text_color"
+            app:chipStartPadding="10dp"
+
+            android:text="20" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Mode" >
+
+        </TextView>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            android:layout_gravity="center"
+            app:checkedChip="@id/silent"
+
+            app:chipSpacingHorizontal="40dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/silent"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                android:textColor="@color/bg_chip_state_text_color"
+
+                app:chipStartPadding="5dp"
+                android:text="silent" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/vibrate"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                android:textColor="@color/bg_chip_state_text_color"
+
+                app:chipStartPadding="5dp"
+                android:text="vibrate" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+
+
+
+    <!--    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:drawableLeft="@drawable/ic_action_access_time"
+            android:drawablePadding="16dp"
+            android:text="Wed, 10 AM - 9 PM" />-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="add"
+            android:clickable="true"
+            android:textColor="#fff"
+            android:focusable="true" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/close"
+            android:layout_marginStart="40dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="cancel"
+            android:clickable="true"
+            android:textColor="#fff"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
