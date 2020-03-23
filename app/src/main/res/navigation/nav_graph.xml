@@ -19,7 +19,11 @@
     />
         <action
             android:id="@+id/action_user_HomePage_to_location_detail"
-            app:destination="@id/location_detail" />
+            app:destination="@id/location_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -29,12 +33,21 @@
         <action
             android:id="@+id/action_mapFragment_to_user_HomePage"
             app:destination="@id/user_HomePage"
-            app:popUpTo="@id/mapFragment"
+            app:popUpTo="@id/user_HomePage"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/location_detail"
         android:name="com.example.silent.Location_detail"
         android:label="location_detail_fragment"
-        tools:layout="@layout/location_detail_fragment" />
+        tools:layout="@layout/location_detail_fragment">
+        <argument
+            android:name="location"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_location_detail_to_user_HomePage"
+            app:destination="@id/user_HomePage"
+            app:popUpTo="@id/user_HomePage"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

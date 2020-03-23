@@ -7,4 +7,4 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.PlusCode
 
 @Entity(tableName = "Location")
-data class Location (@PrimaryKey val id: String, val name: String, val address: String, val radius: Double, val mode: Int, val notify: Int, val LatLng: LatLng, val plusCode: PlusCode, val status: Int)
+data class Location (@PrimaryKey val id: String, val name: String, val address: String, val radius: Double, val mode: Int, val notify: Boolean, val lat: Double, val lng: Double, val plusCode: String, val status: Boolean)

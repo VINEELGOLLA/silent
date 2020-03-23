@@ -54,7 +54,6 @@
                     android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Dandelion Chocolate"
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:textSize="24sp"
@@ -64,12 +63,13 @@
 
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:switchMinWidth="40dp"
                         app:thumbTint="#fafafa"
                         app:trackTint="@color/checker_track"
-                        android:checked="true">
+                        >
 
                     </com.google.android.material.switchmaterial.SwitchMaterial>
 
@@ -97,7 +97,7 @@
             android:textColor="#000000"
 
             android:drawablePadding="16dp"
-            android:text="740 Valencia St, San Fracisco, CA" />
+             />
 
 
 
@@ -109,7 +109,6 @@
                 android:drawableStart="@drawable/ic_navigation_black_24dp"
                 android:drawablePadding="16dp"
                 android:textColor="#0645AD"
-                android:text="8774+J6 Charlotte, NC"
                 android:clickable="true"/>
 
         <TextView
@@ -187,12 +186,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
 
 
 
-            <TextView
+            <!--<TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
@@ -201,28 +201,16 @@
                 android:layout_weight="1"
                 android:text="Mode" >
 
-            </TextView>
+            </TextView>-->
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:checkedChip="@id/vibrate1"
+                app:checkedChip="@id/silent1"
                 app:singleSelection="true"
                 app:chipSpacingHorizontal="40dp">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/vibrate1"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:chipBackgroundColor="@color/bg_chip_state_list"
-                    android:textColor="@color/bg_chip_state_text_color"
-
-                    app:chipStartPadding="5dp"
-                    android:text="silent" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/silent1"
@@ -234,7 +222,31 @@
                     android:textColor="@color/bg_chip_state_text_color"
 
                     app:chipStartPadding="5dp"
+                    android:text="silent" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/vibrate1"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:chipBackgroundColor="@color/bg_chip_state_list"
+                    android:textColor="@color/bg_chip_state_text_color"
+
+                    app:chipStartPadding="5dp"
                     android:text="vibrate" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/normal1"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:chipBackgroundColor="@color/bg_chip_state_list"
+                    android:textColor="@color/bg_chip_state_text_color"
+
+                    app:chipStartPadding="5dp"
+                    android:text="normal" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -263,12 +275,13 @@
 
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/notify1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:switchMinWidth="40dp"
                     app:thumbTint="#fafafa"
                     app:trackTint="@color/checker_track"
-                    android:checked="true">
+                    >
 
                 </com.google.android.material.switchmaterial.SwitchMaterial>
 
@@ -284,7 +297,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/add"
+                android:id="@+id/update"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="update"
@@ -293,7 +306,7 @@
                 android:focusable="true" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/close"
+                android:id="@+id/delete"
                 android:layout_marginLeft="40dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"

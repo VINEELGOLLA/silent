@@ -23,6 +23,7 @@ class LocationLiveData(context: Context): LiveData<LatLng>() {
     }
 
     fun remove(){
+        println("removed removed removed")
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 

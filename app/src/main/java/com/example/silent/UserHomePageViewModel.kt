@@ -1,7 +1,18 @@
 package com.example.silent
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-class UserHomePageViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
+
+class UserHomePageViewModel(application: Application) : AndroidViewModel(application) {
+
+    private var repository:LocationRepository = LocationRepository(application)
+
+    fun getLocations() = repository.getLocations()
+
+
+
+
+
 }

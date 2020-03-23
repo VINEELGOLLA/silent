@@ -6,11 +6,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.silent.db.Location
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
@@ -32,9 +33,13 @@ import kotlinx.android.synthetic.main.bottom_sheet.view.chipGroup2
 import kotlinx.android.synthetic.main.bottom_sheet.view.close
 import kotlinx.android.synthetic.main.bottom_sheet.view.name
 import kotlinx.android.synthetic.main.map_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+
+class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
 
     private var stat: Boolean = true
 
@@ -75,20 +80,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     companion object {
         //fun newInstance() = MapFragment()
         private const val AUTOCOMPLETE_REQUEST_CODE = 2
+        var navController: NavController? = null
+
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
 
-        return inflater.inflate(R.layout.map_fragment, container, false)
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
+
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -100,7 +103,61 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         //add button
         bsv.add.setOnClickListener {
-            sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+            //sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+
+            stopLocationUpdates()
+
+            var radius = 50.0
+            var mode = 0
+
+            when (bsv.chipGroup.checkedChipId) {
+                chip6.id -> {
+                    radius = Constants.mile50
+                }
+                chip7.id -> {
+                    radius = Constants.mile100
+                }
+                chip8.id -> {
+                    radius = Constants.mile150
+                }
+                chip9.id -> {
+                    radius = Constants.mile200
+                }
+            }
+
+            when (bsv.chipGroup2.checkedChipId) {
+                silent.id -> {
+                    mode = 0
+                }
+                vibrate.id -> {
+                    mode = 1
+                }
+                normal.id -> {
+                    mode = 2
+                }
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                context.let {
+                    val loc = Location(
+                        place.id.toString(),
+                        place.name.toString(),
+                        place.address.toString(),
+                        radius,
+                        mode,
+                        false,
+                        searchLatLng!!.latitude,
+                        searchLatLng!!.longitude,
+                        place.plusCode?.compoundCode.toString(),
+                        true
+                    )
+                    viewModel.addlocation(loc)
+                    println("added loc")
+                    //println(loc)
+                    navController!!.navigate(R.id.action_mapFragment_to_user_HomePage)
+                    //User_HomePage.navController!!.navigate(R.id.action_mapFragment_to_user_HomePage)
+                }
+            }
         }
 
         // cancel button
@@ -117,6 +174,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             searchLatLng = null
 
             viewModel.add()
+
+
         }
 
         // mode selection call back
@@ -261,6 +320,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        stopLocationUpdates()
+    }
+
     private fun startLocationUpdates(){
         // observing changes to live location
         viewModel.getLocationData().observe(this, androidx.lifecycle.Observer {
@@ -273,6 +337,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // removing location updates
         viewModel.remove()
     }
+
+
 
 
 
@@ -307,7 +373,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
 
                 place = Autocomplete.getPlaceFromIntent(data!!)
+
+                checkid(place.id!!)
+
                 searchLatLng = place.latLng
+
 
                 addMarker(place.latLng!!,place.name!!)
 
@@ -326,6 +396,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 println("user exit")
             }
         }
+
+    private fun checkid(id: String){
+        val lol: Unit = viewModel.checkID(id)
+        println("exists  $lol")
+    }
 
     // adding marker
     private fun addMarker(l1: LatLng,name: String){
