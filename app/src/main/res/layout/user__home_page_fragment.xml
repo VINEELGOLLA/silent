@@ -1,35 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".User_HomePage">
+    android:background="#ffffff"
+    tools:context=".view.User_HomePage">
+
+    <LinearLayout
+        android:id="@+id/nolocationview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        app:srcCompat="@drawable/welcome2">
+    </ImageView>
 
     <TextView
         android:id="@+id/nolocations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Locations Found"
+        android:text="@string/no_locations_found"
         android:visibility="gone"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:textColor="#000000"
+        android:layout_marginTop="20dp"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:maxLines="2"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="italic" />
+    </LinearLayout>
 
+    <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/fab"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:clickable="true"
+         android:layout_marginEnd="25dp"
+         android:layout_marginBottom="25dp"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentEnd="true"
+         app:fabSize="normal"
+         app:backgroundTint="@color/secondaryTextColor"
+         android:src="@drawable/ic_add_black_24dp"
+         app:layout_dodgeInsetEdges="bottom"
+         android:focusable="true" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
         app:fabSize="normal"
         app:backgroundTint="@color/secondaryTextColor"
-        android:src="@drawable/ic_add_black_24dp" />
+        android:src="@drawable/ic_add_black_24dp"
+        app:layout_dodgeInsetEdges="bottom"
+        android:focusable="true"
+        tools:ignore="RtlHardcoded" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,19 +82,48 @@
             android:layout_height="80dp"
             android:orientation="vertical"
             android:gravity="center">
-
-
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Locations"
+                android:text="@string/locations"
                 android:layout_gravity="center"
                 android:textColor="#fafafa"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="#BDBDBD"
+            android:id="@+id/permissionalert"
+            android:visibility="visible"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/permission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="2"
+                android:textColor="@color/secondaryDarkColor"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:text="@string/enable">
+
+            </com.google.android.material.button.MaterialButton>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,4 +144,4 @@
 
 
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

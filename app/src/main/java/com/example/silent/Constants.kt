@@ -4,10 +4,14 @@ import com.google.android.libraries.places.api.model.Place
 
 object Constants {
 
-    const val mile50 = 50.0
-    const val mile100 = 100.0
-    const val mile150 = 150.0
-    const val mile200 = 200.0
+    //0.1 mile in meters
+    const val mile50 = 160.934
+    // 0.2 mile in meters
+    const val mile100 = 321.869
+    // 03 mile in meters
+    const val mile150 = 482.803
+     //0.5 mile in meters
+    const val mile200 = 804.672
 
     // Type of fields we want from place search
     val fields = listOf(
@@ -21,5 +25,7 @@ object Constants {
     const val api_key = "AIzaSyCvHDX7gaYf9HnxoRgEjvWK779WgAMckSA"
 
     const val peekheight = 270
+
+    const val WORK_NAME = "com.example.silent"
 
 }

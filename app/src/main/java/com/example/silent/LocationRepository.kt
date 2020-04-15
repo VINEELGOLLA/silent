@@ -1,6 +1,7 @@
 package com.example.silent
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.example.silent.db.Location
 import com.example.silent.db.LocationDao
 import com.example.silent.db.LocationDatabase
@@ -19,7 +20,6 @@ class LocationRepository(application: Application) : CoroutineScope {
         val db = LocationDatabase.getDatabase(application)
         locationDao = db?.locationDao()
     }
-
 
     fun getLocations() = locationDao?.getAllLocations()
 
@@ -40,12 +40,22 @@ class LocationRepository(application: Application) : CoroutineScope {
             locationDao?.update(location)
         }
     }
-
-    fun checkId(id:String){
-        launch {
-            locationDao?.getcheckid(id)
-        }
-    }
     
     fun getlocationid(locationid: String) = locationDao?.getLocation(locationid)
+
+    //fun getLatLngRadius() = locationDao?.getLatLngRadius()
+
+
+    fun getactivelocation() = locationDao?.checkActiveLocation()
+
+    fun updateswitch(id: String,bool:Boolean){
+        launch {
+            locationDao?.updateswitch(id,bool)
+        }
+    }
+
+    fun checkid(id: String): LiveData<Int>? = locationDao?.checkid(id)
+
+    fun setstatusfalse() = locationDao?.setstatusfalse()
+
 }

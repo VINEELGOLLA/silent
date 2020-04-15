@@ -1,4 +1,4 @@
-package com.example.silent
+package com.example.silent.view
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
@@ -8,9 +8,13 @@ import android.graphics.Point
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.silent.Constants
+import com.example.silent.viewmodel.MapViewModel
+import com.example.silent.R
 import com.example.silent.db.Location
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.*
@@ -36,10 +40,11 @@ import kotlinx.android.synthetic.main.map_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
 
-
-class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
+class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, CoroutineScope {
 
     private var stat: Boolean = true
 
@@ -49,7 +54,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
     private  lateinit var markerPoint: Point
     private lateinit var targetPoint: Point
     private lateinit var targetPosition: LatLng
-
 
 
     // google places
@@ -81,8 +85,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
         //fun newInstance() = MapFragment()
         private const val AUTOCOMPLETE_REQUEST_CODE = 2
         var navController: NavController? = null
-
-
     }
 
 
@@ -137,25 +139,24 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
                 }
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                context.let {
-                    val loc = Location(
-                        place.id.toString(),
-                        place.name.toString(),
-                        place.address.toString(),
-                        radius,
-                        mode,
-                        false,
-                        searchLatLng!!.latitude,
-                        searchLatLng!!.longitude,
-                        place.plusCode?.compoundCode.toString(),
-                        true
-                    )
-                    viewModel.addlocation(loc)
-                    println("added loc")
-                    //println(loc)
-                    navController!!.navigate(R.id.action_mapFragment_to_user_HomePage)
-                    //User_HomePage.navController!!.navigate(R.id.action_mapFragment_to_user_HomePage)
+            val loc = Location(
+                place.id.toString(),
+                place.name.toString(),
+                place.address.toString(),
+                radius,
+                mode,
+                false,
+                searchLatLng!!.latitude,
+                searchLatLng!!.longitude,
+                place.plusCode?.compoundCode.toString(),
+                true
+            )
+
+            launch {
+                viewModel.addlocation(loc)
+                withContext (Dispatchers.Main) {
+
+                    navController?.popBackStack()
                 }
             }
         }
@@ -163,17 +164,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
         // cancel button
         bsv.close.setOnClickListener {
 
-            sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
-            sheetBehavior.setPeekHeight(0,true)
-
-            map.clear()
-
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
-
-            searchLatLng = null
-
-            viewModel.add()
+            restoringui()
 
 
         }
@@ -239,9 +230,33 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
             }
         }
 
+        back.setOnClickListener{
+            //navController?.navigate(R.id.action_mapFragment_to_user_HomePage)
+            activity!!.onBackPressed()
+        }
     }
 
 
+
+
+    private fun restoringui(){
+        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        //bsv.add.text = "add"
+        bsv.add.isEnabled = true
+
+        sheetBehavior.setPeekHeight(0,true)
+
+        map.clear()
+
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
+
+        searchLatLng = null
+
+        viewModel.add()
+
+        viewModel.checkid("lol")?.removeObservers(viewLifecycleOwner)
+    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -267,6 +282,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
 
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
+
                         bsv.remove.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp)
 
                         projectionscreen(2,view.height)
@@ -320,9 +336,18 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
         }
     }
 
+    override fun onStop() {
+        stopLocationUpdates()
+        //viewModel.getLocationData().removeObservers(viewLifecycleOwner)
+        super.onStop()
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
-        stopLocationUpdates()
+
+        println("map fragment destroyed")
+        //stopLocationUpdates()
     }
 
     private fun startLocationUpdates(){
@@ -335,6 +360,10 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
 
     private fun stopLocationUpdates(){
         // removing location updates
+        println("map fragment map locaropn destroyed")
+
+        viewModel.getLocationData().removeObservers(viewLifecycleOwner)
+
         viewModel.remove()
     }
 
@@ -352,10 +381,13 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
     private fun loadPlacePicker() {
 
         val intent: Intent = Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.FULLSCREEN, Constants.fields
+                AutocompleteActivityMode.FULLSCREEN,
+            Constants.fields
             )
             .build(context!!)
-        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+        startActivityForResult(intent,
+            AUTOCOMPLETE_REQUEST_CODE
+        )
 }
 
 
@@ -374,7 +406,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
 
                 place = Autocomplete.getPlaceFromIntent(data!!)
 
-                checkid(place.id!!)
 
                 searchLatLng = place.latLng
 
@@ -385,21 +416,49 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
 
 
                 bottomsheetSetupAfterplacesearch(place.name.toString(),place.address.toString())
+
+                place.id?.let { checkid(it) }
             }
 
             }
             else if (resultCode == RESULT_ERROR){
                 val status: Status = Autocomplete.getStatusFromIntent(data!!)
-                println("error$status")
+                //println("error$status")
             }
             else if (resultCode == RESULT_CANCELED) {
-                println("user exit")
+                //println("user exit")
             }
         }
 
-    private fun checkid(id: String){
-        val lol: Unit = viewModel.checkID(id)
-        println("exists  $lol")
+    private fun checkid(id: String) {
+
+
+            //var lol: LiveData<Int>? = viewModel.checkid(id)
+            //println("return "+ lol)
+
+        val liveData = viewModel.checkid(id)
+        liveData?.observe(this, Observer {
+            if(it == 1) {
+                updatesamelocation()
+            }
+            liveData.removeObservers(viewLifecycleOwner)
+        })
+
+        viewModel.checkid(id)?.observe(this@MapFragment, Observer {
+                //println("return "+ it)
+                if(it == 1) {
+                    updatesamelocation()
+                }
+
+
+
+            })
+
+    }
+
+    private fun updatesamelocation() {
+        //bsv.add.text = "exist"
+        bsv.add.isEnabled = false
     }
 
     // adding marker
@@ -441,4 +500,9 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLng(targetPosition), 1000, null)
     }
 
+
+
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
 }

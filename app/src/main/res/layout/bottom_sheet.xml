@@ -16,13 +16,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <ImageView
                 android:id="@+id/remove"
@@ -30,7 +32,8 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
 
-                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp">
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
+                android:contentDescription="@null">
 
             </ImageView>
 
@@ -38,7 +41,6 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dandelion Chocolate"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -62,7 +64,7 @@
         android:layout_margin="8dp"
         android:drawableStart="@drawable/ic_location_on_black_24dp"
         android:drawablePadding="16dp"
-        android:text="740 Valencia St, San Fracisco, CA" />
+         />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,7 +73,7 @@
         android:drawablePadding="16dp"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:text="Select Radius" >
+        android:text="@string/radius_miles" >
 
     </TextView>
 
@@ -94,8 +96,8 @@
             app:chipBackgroundColor="@color/bg_chip_state_list"
             android:textColor="@color/bg_chip_state_text_color"
 
-            app:chipStartPadding="10dp"
-            android:text="5" />
+            app:chipStartPadding="5dp"
+            android:text="@string/_0_1" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip7"
@@ -106,8 +108,8 @@
             app:chipBackgroundColor="@color/bg_chip_state_list"
             android:textColor="@color/bg_chip_state_text_color"
 
-            app:chipStartPadding="10dp"
-            android:text="10" />
+            app:chipStartPadding="5dp"
+            android:text="@string/_0_2" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip8"
@@ -118,9 +120,9 @@
             app:chipBackgroundColor="@color/bg_chip_state_list"
             android:textColor="@color/bg_chip_state_text_color"
 
-            app:chipStartPadding="10dp"
+            app:chipStartPadding="5dp"
 
-            android:text="15" />
+            android:text="@string/_0_3" />
         <com.google.android.material.chip.Chip
             android:id="@+id/chip9"
             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -129,9 +131,9 @@
             android:theme="@style/Theme.MaterialComponents.Light"
             app:chipBackgroundColor="@color/bg_chip_state_list"
             android:textColor="@color/bg_chip_state_text_color"
-            app:chipStartPadding="10dp"
+            app:chipStartPadding="5dp"
 
-            android:text="20" />
+            android:text="@string/_0_5" />
     </com.google.android.material.chip.ChipGroup>
 
     <LinearLayout
@@ -175,7 +177,7 @@
                 android:textColor="@color/bg_chip_state_text_color"
 
                 app:chipStartPadding="5dp"
-                android:text="silent" />
+                android:text="@string/silent" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/vibrate"
@@ -187,7 +189,7 @@
                 android:textColor="@color/bg_chip_state_text_color"
 
                 app:chipStartPadding="5dp"
-                android:text="vibrate" />
+                android:text="@string/vibrate" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/normal"
@@ -199,22 +201,11 @@
                 android:textColor="@color/bg_chip_state_text_color"
 
                 app:chipStartPadding="5dp"
-                android:text="normal" />
+                android:text="@string/normal" />
 
         </com.google.android.material.chip.ChipGroup>
 
     </LinearLayout>
-
-
-
-
-    <!--    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:drawableLeft="@drawable/ic_action_access_time"
-            android:drawablePadding="16dp"
-            android:text="Wed, 10 AM - 9 PM" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -227,7 +218,7 @@
             android:id="@+id/add"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="add"
+            android:text="@string/add"
             android:clickable="true"
             android:textColor="#fff"
             android:focusable="true" />
@@ -237,7 +228,7 @@
             android:layout_marginStart="40dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="cancel"
+            android:text="@string/cancel"
             android:clickable="true"
             android:textColor="#fff"
             android:focusable="true" />

@@ -8,16 +8,36 @@
     android:windowSoftInputMode="adjustResize"
     app:layout_anchor="@+id/bottom_sheet"
     app:layout_anchorGravity="top|end"
-    tools:context=".MapFragment">
+    tools:context=".view.MapFragment">
 
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:layout_dodgeInsetEdges="bottom|end" />
+        app:layout_dodgeInsetEdges="bottom|end">
+
+
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+            android:contentDescription="@null">
+
+        </ImageView>
+
+    </FrameLayout>
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

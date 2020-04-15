@@ -3,4 +3,25 @@
     <string name="google_maps_key">AIzaSyCvHDX7gaYf9HnxoRgEjvWK779WgAMckSA</string>
     <string name="CircleFillColor">#2271cce7</string>
     <string name="CircleStrokeColor">#2271cce7</string>
+    <string name="delete_location_detail">delete</string>
+    <string name="save_location_detail">save</string>
+    <string name="on_location_detail">ON</string>
+    <string name="auto_stop_after_completion">Auto stop After Completion</string>
+    <string name="notify_before_turning_on">Notify Before Turning On</string>
+    <string name="normal">normal</string>
+    <string name="vibrate">vibrate</string>
+    <string name="silent">silent</string>
+    <string name="_0_5">0.5</string>
+    <string name="_0_3">0.3</string>
+    <string name="_0_2">0.2</string>
+    <string name="_0_1">0.1</string>
+    <string name="update_radius">Radius</string>
+    <string name="no_locations_found">Tap plus button to add Locations</string>
+    <string name="locations">Locations</string>
+    <string name="enable">enable</string>
+    <string name="radius_miles">Radius (Miles)</string>
+    <string name="add">add</string>
+    <string name="cancel">Cancel</string>
+    <string name="Enable_Notification_Policy">Enable Do Not Disturb access</string>
+    <string name="done">Done</string>
 </resources>

@@ -9,9 +9,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 
-
-
-
 class LocationLiveData(context: Context): LiveData<LatLng>() {
 
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -23,7 +20,7 @@ class LocationLiveData(context: Context): LiveData<LatLng>() {
     }
 
     fun remove(){
-        println("removed removed removed")
+        //println("removed removed removed")
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 

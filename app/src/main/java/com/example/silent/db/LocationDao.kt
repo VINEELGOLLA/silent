@@ -1,10 +1,8 @@
 package com.example.silent.db
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import androidx.work.Operation
-import com.example.silent.Location_detail
+import com.example.silent.model.LocationCheck
 
 
 @Dao
@@ -16,7 +14,6 @@ interface LocationDao {
     @Delete
     suspend fun delete(vararg location: Location)
 
-    //@Query("Select * from Location ORDER BY status DESC")
     @Query("Select * from Location ORDER BY status DESC")
     fun getAllLocations(): LiveData<List<Location>>
 
@@ -28,4 +25,22 @@ interface LocationDao {
 
     @Query( "SELECT CASE WHEN EXISTS(SELECT * From Location where id = :id) THEN '1' ELSE '0' END")
     suspend fun getcheckid(id: String): Int
+
+    @Query("SELECT id, lat, lng, name, notify, radius, mode From Location where status = 1")
+    fun getLatLngRadius(): LiveData<List<LocationCheck>>
+
+    @Query("SELECT COUNT(*) From Location where status = 1")
+    fun checkActiveLocation(): LiveData<Int>
+
+    @Query("SELECT id, lat, lng, name, notify, radius, mode From Location where status = 1")
+    fun getLatLngRadius1(): List<LocationCheck>
+
+    @Query("UPDATE Location set status = :bool where id = :id")
+    suspend fun updateswitch(id: String,bool: Boolean)
+
+    @Query("SELECT COUNT(*) From Location where id = :id")
+    fun checkid(id: String): LiveData<Int>
+
+    @Query("UPDATE Location set status = 0")
+    fun setstatusfalse()
 }

@@ -4,34 +4,136 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:theme="@style/App1Theme"
-    tools:context=".Location_detail">
+    android:orientation="vertical"
+    tools:context=".view.Location_detail">
 
-    <!--    <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#000000"
-            android:elevation="4dp"
-            android:theme="@style/App1Theme" />-->
+    <LinearLayout
+        android:id="@+id/updatelol"
+        android:background="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="visible">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
 
+        <TextView
+            android:id="@+id/gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textColor="#fafafa"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:text="@string/cancel">
+        </TextView>
 
-    <fragment
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="25dp"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_arrow_back_white_24dp">
+            </ImageView>
+
+        </FrameLayout>
+
+
+        <!--    <ImageView
+                android:id="@+id/gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:contentDescription="@null"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_close_black_24dp">
+            </ImageView>
+    -->
+
+        <TextView
+            android:id="@+id/toolbartext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#fafafa"
+            android:gravity="center"
+            android:maxLines="1"
+            android:layout_weight="1">
+
+        </TextView>
+    <!--    <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </View>-->
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp">
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_edit_black_24dp"
+                tools:ignore="PrivateResource">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fafafa"
+                android:visibility="gone"
+                android:textSize="20sp"
+                android:text="@string/done">
+            </TextView>
+
+        <!--    <ImageView
+                android:id="@+id/tick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_done_black_24dp">
+
+            </ImageView>-->
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4" />
+        android:layout_weight="0.6">
+    </androidx.fragment.app.FragmentContainerView>
 
-
-        <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="16dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +143,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -58,6 +161,7 @@
                     android:textColor="#000000"
                     android:textSize="24sp"
                     android:layout_weight="1"
+                    android:transitionName="tname"
                     android:textStyle="bold" />
 
 
@@ -67,6 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:switchMinWidth="40dp"
+                        android:layout_gravity="top"
                         app:thumbTint="#fafafa"
                         app:trackTint="@color/checker_track"
                         >
@@ -109,7 +214,8 @@
                 android:drawableStart="@drawable/ic_navigation_black_24dp"
                 android:drawablePadding="16dp"
                 android:textColor="#0645AD"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:focusable="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,7 +225,7 @@
             android:drawablePadding="16dp"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:text="Update Radius" >
+            android:text="@string/update_radius" >
 
         </TextView>
 
@@ -129,8 +235,6 @@
             android:layout_height="wrap_content"
             app:singleSelection="true"
             android:layout_gravity="center"
-            app:checkedChip="@id/chip6"
-
             app:chipSpacingHorizontal="40dp">
 
             <com.google.android.material.chip.Chip
@@ -142,8 +246,8 @@
                 app:chipBackgroundColor="@color/bg_chip_state_list"
                 android:textColor="@color/bg_chip_state_text_color"
 
-                app:chipStartPadding="10dp"
-                android:text="5" />
+                app:chipStartPadding="5dp"
+                android:text="@string/_0_1" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip7"
@@ -154,8 +258,8 @@
                 app:chipBackgroundColor="@color/bg_chip_state_list"
                 android:textColor="@color/bg_chip_state_text_color"
 
-                app:chipStartPadding="10dp"
-                android:text="10" />
+                app:chipStartPadding="5dp"
+                android:text="@string/_0_2" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip8"
@@ -166,9 +270,9 @@
                 app:chipBackgroundColor="@color/bg_chip_state_list"
                 android:textColor="@color/bg_chip_state_text_color"
 
-                app:chipStartPadding="10dp"
+                app:chipStartPadding="5dp"
 
-                android:text="15" />
+                android:text="@string/_0_3" />
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip9"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -177,9 +281,9 @@
                 android:theme="@style/Theme.MaterialComponents.Light"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
                 android:textColor="@color/bg_chip_state_text_color"
-                app:chipStartPadding="10dp"
+                app:chipStartPadding="5dp"
 
-                android:text="20" />
+                android:text="@string/_0_5" />
         </com.google.android.material.chip.ChipGroup>
 
 
@@ -187,6 +291,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginTop="10dp"
+
                 android:orientation="horizontal">
 
 
@@ -222,7 +328,7 @@
                     android:textColor="@color/bg_chip_state_text_color"
 
                     app:chipStartPadding="5dp"
-                    android:text="silent" />
+                    android:text="@string/silent" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/vibrate1"
@@ -234,7 +340,7 @@
                     android:textColor="@color/bg_chip_state_text_color"
 
                     app:chipStartPadding="5dp"
-                    android:text="vibrate" />
+                    android:text="@string/vibrate" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/normal1"
@@ -246,7 +352,7 @@
                     android:textColor="@color/bg_chip_state_text_color"
 
                     app:chipStartPadding="5dp"
-                    android:text="normal" />
+                    android:text="@string/normal" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -265,7 +371,7 @@
                     android:id="@+id/notify"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Notify Before Turning On"
+                    android:text="@string/notify_before_turning_on"
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:textSize="18sp"
@@ -287,6 +393,37 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+
+
+            <TextView
+                android:id="@+id/autostop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_stop_after_completion"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/on_location_detail">
+
+            </TextView>
+        </LinearLayout>
+
+
 
 
         <LinearLayout
@@ -296,43 +433,20 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/update"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="update"
-                android:clickable="true"
-                android:textColor="#fff"
-                android:focusable="true" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/delete"
-                android:layout_marginLeft="40dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="delete"
+                android:text="@string/delete_location_detail"
                 android:clickable="true"
                 android:textColor="#fff"
                 android:focusable="true" />
 
         </LinearLayout>
-
-
-
-
-
 </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
+    </ScrollView>
 
 
 
