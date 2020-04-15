@@ -116,7 +116,8 @@ class User_HomePage : Fragment(R.layout.user__home_page_fragment) {
                 nolocationview.visibility = VISIBLE
             }
             val itemTouchHelper = ItemTouchHelper(SwipetoDelete(recyclerview.adapter as LocationAdapter))
-            itemTouchHelper.attachToRecyclerView(recyclerview)
+            itemTouchHelper.attachToRecyclerView(recyclerview);
+            //ajsndkajsndas
         })
     }
 
