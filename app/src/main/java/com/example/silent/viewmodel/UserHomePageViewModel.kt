@@ -16,10 +16,6 @@ class UserHomePageViewModel(application: Application) : AndroidViewModel(applica
 
     fun updateswitch(id: String,bool:Boolean) = repository.updateswitch(id,bool)
 
-   /* fun deleteLocation(location: Location){
-        repository.deleteLocation(location)
-    }*/
-
     fun addlocation(location: Location){
         repository.addlocation(location)
     }

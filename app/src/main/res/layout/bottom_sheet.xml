@@ -5,12 +5,12 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
     android:orientation="vertical"
     android:padding="16dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="100dp"
     app:layout_insetEdge="bottom"
+    android:background="@drawable/rounded_edge"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <LinearLayout

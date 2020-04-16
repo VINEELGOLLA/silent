@@ -46,15 +46,6 @@ import kotlin.coroutines.CoroutineContext
 
 class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, CoroutineScope {
 
-    private var stat: Boolean = true
-
-    // projection screen
-    private lateinit var projection: Projection
-    private  var markerPosition: LatLng? = null
-    private  lateinit var markerPoint: Point
-    private lateinit var targetPoint: Point
-    private lateinit var targetPosition: LatLng
-
 
     // google places
     private lateinit var place: Place
@@ -66,6 +57,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
     // bottom sheet
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private lateinit var bsv: View
+    private lateinit var currlayout: View
 
     // current user location
     private var currentLatLng: LatLng? = null
@@ -101,6 +93,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
 
 
         bsv = view.findViewById(R.id.bottom_sheet)
+        currlayout = view.findViewById(R.id.mapf)
 
 
         //add button
@@ -224,8 +217,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
             }
             else{
-
-                projectionscreen(6,view.height)
+                projectionscreen(bsv.height)
 
             }
         }
@@ -250,6 +242,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
         map.clear()
 
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
+        //map.setPadding(0,0,0,0)
 
         searchLatLng = null
 
@@ -282,10 +275,11 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
 
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
+                        System.out.println("expanded")
 
                         bsv.remove.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp)
 
-                        projectionscreen(2,view.height)
+                        projectionscreen(view.height)
 
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
@@ -354,7 +348,8 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
         // observing changes to live location
         viewModel.getLocationData().observe(this, androidx.lifecycle.Observer {
             currentLatLng = LatLng(it.latitude, it.longitude)
-            setonce()
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+
         })
     }
 
@@ -367,16 +362,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
         viewModel.remove()
     }
 
-
-
-
-
-    private fun setonce() {
-        if(stat) {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
-            stat = false
-        }
-    }
 
     private fun loadPlacePicker() {
 
@@ -432,10 +417,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
 
     private fun checkid(id: String) {
 
-
-            //var lol: LiveData<Int>? = viewModel.checkid(id)
-            //println("return "+ lol)
-
         val liveData = viewModel.checkid(id)
         liveData?.observe(this, Observer {
             if(it == 1) {
@@ -443,17 +424,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
             }
             liveData.removeObservers(viewLifecycleOwner)
         })
-
-        viewModel.checkid(id)?.observe(this@MapFragment, Observer {
-                //println("return "+ it)
-                if(it == 1) {
-                    updatesamelocation()
-                }
-
-
-
-            })
-
     }
 
     private fun updatesamelocation() {
@@ -469,6 +439,8 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
                 .title(name)
                 .snippet(name)
         )
+
+        map.setPadding(0,0,0,bsv.height)
     }
 
     // adding radius around location place
@@ -490,14 +462,13 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
         sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun projectionscreen(divide: Int , height: Int){
-        projection = map.projection
-        markerPosition = searchLatLng
-        markerPoint = projection.toScreenLocation(markerPosition)
-        targetPoint = Point(markerPoint.x, markerPoint.y - height / divide )
-        targetPosition = projection.fromScreenLocation(targetPoint)
+    private fun projectionscreen(height: Int){
 
-        map.animateCamera(CameraUpdateFactory.newLatLng(targetPosition), 1000, null)
+        map.animateCamera(CameraUpdateFactory.newLatLng(searchLatLng), 1000, null)
+
+        map.setPadding(0,0,0,height)
+
+
     }
 
 
