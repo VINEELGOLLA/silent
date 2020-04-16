@@ -30,11 +30,6 @@ class NotificationReceiverDB: BroadcastReceiver(),CoroutineScope {
 
         val id: String? = intent.getStringExtra("locationid")
 
-        launch {
-            if (id != null) {
-                repository.locationDao().updateswitch(id,false)
-            }
-        }
 
         if (am!!.ringerMode != mode) {
             when (mode) {
@@ -43,7 +38,8 @@ class NotificationReceiverDB: BroadcastReceiver(),CoroutineScope {
             }
         }
 
-        am!!.ringerMode = mode
+
+        //am!!.ringerMode = mode
 
         val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(notificationId)

@@ -204,8 +204,8 @@ class LocationWorker(context: Context, workerParams: WorkerParameters) : Worker(
 
 
         val notification = NotificationCompat.Builder(applicationContext, channelid)
-            .setContentTitle(name)
-            .setContentText("$mode1  mode  on")
+            .setContentTitle("Arrived at $name")
+            .setContentText("$mode1  mode  activated")
             .setSmallIcon(R.drawable.ic_place_black_24dp)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
@@ -239,9 +239,14 @@ class LocationWorker(context: Context, workerParams: WorkerParameters) : Worker(
         button2Intent.putExtra("ringermode",mode)
         val activateIntent: PendingIntent = PendingIntent.getBroadcast(applicationContext, 0, button2Intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        // status to false
+        launch {
+            repository.locationDao().updateswitch(id,false)
+        }
+
         val notification = NotificationCompat.Builder(applicationContext, channelid)
-            .setContentTitle(name)
-            .setContentText("$mode1  mode  on")
+            .setContentTitle("Arrived at $name")
+            .setContentText("Do you want to activate $mode1  mode")
             .setSmallIcon(R.drawable.ic_place_black_24dp)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
              //.setContentIntent(pendingIntent)
@@ -255,7 +260,6 @@ class LocationWorker(context: Context, workerParams: WorkerParameters) : Worker(
 
         val notificationManager = NotificationManagerCompat.from(applicationContext)
 
-        //println("id from worker " + notificatioID)
 
         notificationManager.notify(notificatioID, notification)
     }
