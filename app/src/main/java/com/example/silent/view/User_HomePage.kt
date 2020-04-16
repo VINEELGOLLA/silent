@@ -136,15 +136,10 @@ class User_HomePage : Fragment(R.layout.user__home_page_fragment) {
         else if (lol == "switch" && !task.status) {
             viewModel.updateswitch(task.id, true)
         }
-        else if(lol == "swipedelete"){
+       /* else if(lol == "swipedelete"){
             //println("data lol" + task)
-            viewModel.deleteLocation(task)
-
-           /* Snackbar.make(requireView(),task.name + " removed",Snackbar.LENGTH_LONG)
-                .setAction("undo") {
-
-                }*/
-        }
+            //viewModel.deleteLocation(task)
+        }*/
         else if (lol == "swipeadd"){
             viewModel.addlocation(task)
         }

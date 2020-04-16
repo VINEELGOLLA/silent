@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.*
 import com.example.silent.R
 import com.example.silent.db.Location
+import com.example.silent.workers.itemWorker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.user_home_recyclerview_layout.view.*
 import kotlinx.android.synthetic.main.user_home_recyclerview_layout.view.name
+import java.util.concurrent.TimeUnit
 
 class LocationAdapter(private var list: MutableList<Location>, private val clickListener: (Location,String) -> Unit): RecyclerView.Adapter<LocationAdapter.ViewHolder>(){
 
@@ -35,18 +38,24 @@ class LocationAdapter(private var list: MutableList<Location>, private val click
     }
 
     fun deleteItem(pos:Int, viewHolder: RecyclerView.ViewHolder){
-        clickListener(list[pos],"swipedelete")
+        //clickListener(list[pos],"swipedelete")
 
         val data = list[pos]
         list.removeAt(pos)
-        //list.drop(pos)
-        notifyItemRemoved(pos)
-        //Toast.makeText(viewHolder.itemView.context,"lol", Toast.LENGTH_LONG).show()
 
-        Snackbar.make(viewHolder.itemView.rootView.findViewById(R.id.relative),data.name + " removed",Snackbar.LENGTH_LONG)
+        notifyItemRemoved(pos)
+
+        val sdata = workDataOf("id" to data.id)
+
+        val repeatingRequest: OneTimeWorkRequest = OneTimeWorkRequest.Builder(itemWorker::class.java).setInputData(sdata).setInitialDelay(2, TimeUnit.SECONDS).build()
+
+        WorkManager.getInstance(viewHolder.itemView.context).beginUniqueWork(data.id, ExistingWorkPolicy.REPLACE, repeatingRequest).enqueue()
+
+        Snackbar.make(viewHolder.itemView.rootView.findViewById(R.id.relative),data.name + " deleting",Snackbar.LENGTH_LONG)
             .setAction("undo") {
-                //undoitem(pos,data)
-                clickListener(data,"swipeadd")
+                WorkManager.getInstance(viewHolder.itemView.context).cancelUniqueWork(data.id)
+                list.add(pos,data)
+                notifyItemInserted(pos)
             }.setActionTextColor(Color.YELLOW).show()
     }
 

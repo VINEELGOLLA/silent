@@ -43,4 +43,7 @@ interface LocationDao {
 
     @Query("UPDATE Location set status = 0")
     fun setstatusfalse()
+
+    @Query("Delete From Location where id = :id")
+    fun itemdelete(id: String)
 }
