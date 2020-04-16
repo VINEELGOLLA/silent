@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.os.Build
-import com.example.silent.db.LocationDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class NotificationReceiverDB: BroadcastReceiver(),CoroutineScope {
@@ -21,14 +19,14 @@ class NotificationReceiverDB: BroadcastReceiver(),CoroutineScope {
         am = context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager?
 
         // room database
-        val repository: LocationDatabase = LocationDatabase.getDatabase(context!!.applicationContext)!!
+        //val repository: LocationDatabase = LocationDatabase.getDatabase(context!!.applicationContext)!!
 
 
         val notificationId: Int = intent!!.getIntExtra("notificationId",0)
 
         val mode: Int = intent.getIntExtra("ringermode",0)
 
-        val id: String? = intent.getStringExtra("locationid")
+        //val id: String? = intent.getStringExtra("locationid")
 
 
         if (am!!.ringerMode != mode) {
@@ -41,7 +39,7 @@ class NotificationReceiverDB: BroadcastReceiver(),CoroutineScope {
 
         //am!!.ringerMode = mode
 
-        val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(notificationId)
     }
 

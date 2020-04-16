@@ -17,7 +17,6 @@ class itemWorker(context: Context, workerParams: WorkerParameters): Worker(conte
 
     override fun doWork(): Result {
 
-        System.out.println("itemworker deleted")
         val id = inputData.getString("id")
 
         if (id != null) repository.locationDao().itemdelete(id)

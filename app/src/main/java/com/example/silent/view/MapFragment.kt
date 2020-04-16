@@ -214,6 +214,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
         // current location
         current.setOnClickListener{
             if(searchLatLng == null) {
+                map.setPadding(0,0,0,0)
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
             }
             else{
@@ -240,6 +241,7 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
         sheetBehavior.setPeekHeight(0,true)
 
         map.clear()
+        map.setPadding(0,0,0,0)
 
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
         //map.setPadding(0,0,0,0)
@@ -332,7 +334,6 @@ class MapFragment : Fragment(R.layout.map_fragment), OnMapReadyCallback, Corouti
 
     override fun onStop() {
         stopLocationUpdates()
-        //viewModel.getLocationData().removeObservers(viewLifecycleOwner)
         super.onStop()
     }
 
