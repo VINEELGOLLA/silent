@@ -6,6 +6,8 @@ This application will change the phone ringer mode automatically based on the lo
 
 This application will check the user location every 15 minutes. If the user is in any of the specified locations. The ringer mode will be changed accordingly as specified by the user.
 
+Google PlayStore Link: https://play.google.com/store/apps/details?id=com.apple.silent
+
 HOW TO USE:
 
 Step 1: Download the app from the Google play store.
